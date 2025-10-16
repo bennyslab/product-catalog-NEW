@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Products</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: #fff;
+      margin: 0; padding: 0;
+    }
+    .container { max-width: 1300px; margin: 30px auto; }
+    .header { text-align:center; margin-bottom: 35px;}
+    .header h1 { font-size:2.5em; color:#1a202c; letter-spacing:0.5px; font-weight: 700;}
+    .header p { color: #444; opacity:.85; font-size:1.1em;}
+    .products {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      justify-content: center;
+    }
+    .product {
+      background: #fff;
+      border: 1.5px solid #ececec;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px #23272a11;
+      width: 265px; padding:22px 22px 18px 22px;
+      display: flex; flex-direction: column; align-items: center;
+      margin-bottom: 18px;
+      transition: box-shadow 0.25s, transform 0.2s;
+    }
+    .product:hover {
+      box-shadow: 0 6px 30px #3756c922, 0 1.5px 8px #23272a09;
+      transform: translateY(-6px) scale(1.03);
+    }
+    .product img {
+      width: 116px; height: 116px; object-fit: contain;
+      margin-bottom: 16px; border-radius:13px; background:#fff;
+      border: 1.5px solid #e4e7ec;
+      box-shadow: none;
+      transition: box-shadow 0.2s;
+    }
+    .product-name { font-weight: 600; margin-bottom: 4px; color:#23272a; font-size:1.14em;}
+    .product-spec { color: #555; font-size:0.97em; margin-bottom:7px;}
+    .product-price { color: #3756c9; font-weight: 700; margin-bottom:10px; font-size: 1.08em;}
+    .cart-controls { display:flex; gap:11px; align-items:center; margin-bottom:8px;}
+    .qty-btn {
+      background: #3756c9;
+      color:#fff; border:none; border-radius:7px; padding:5px 16px;
+      font-size:1.18em; font-weight:700; cursor:pointer;
+      transition: background 0.2s, transform 0.12s;
+      outline:none;
+      box-shadow: none;
+    }
+    .qty-btn:hover {
+      background: #22337a;
+    }
+    .qty-btn:active {
+      background: #22337a;
+      transform: scale(0.96);
+    }
+    .qty-display {
+      font-weight:600; min-width:29px; text-align:center; font-size:1.08em; color:#23272a;
+    }
+    .add-btn {
+      background: linear-gradient(90deg, #44c982 60%, #79e6b4 100%);
+      color:#fff; border:none; border-radius:9px; padding:10px 24px;
+      font-size:1.07em; margin-top:7px; font-weight:700;
+      cursor:pointer; letter-spacing:0.02em;
+      transition: background 0.18s, transform 0.12s;
+      box-shadow: none;
+    }
+    .add-btn:hover {
+      background: linear-gradient(90deg, #2a9c62 70%, #44c982 100%);
+      transform: scale(1.04);
+    }
+    .add-btn:active {
+      background: linear-gradient(90deg, #207548 85%, #2a9c62 100%);
+      transform: scale(0.97);
+    }
+    .cart-summary {
+      background: #f8faff; border:1.5px solid #e4e7ec; border-radius:14px;
+      margin: 35px auto 0 auto; max-width: 520px; padding: 24px;
+    }
+    .cart-item { border-bottom:1px solid #e4e7ec; padding:10px 0; font-size:1.07em;}
+    .cart-total { font-weight:800; color:#3756c9; margin-top:18px; font-size:1.14em;}
+    .checkout-btn {
+      background: #3756c9;
+      color:#fff; border:none; border-radius:9px; padding:15px 40px; font-size:1.13em; font-weight: 800; margin-top:27px; cursor:pointer;
+      letter-spacing:.02em;
+      box-shadow: none;
+      transition: background 0.19s, transform 0.13s;
+    }
+    .checkout-btn:hover {
+      background: #22337a;
+      transform:scale(1.04);
+    }
+    .checkout-btn:active {
+      background: #1a202c;
+      transform:scale(.97);
+    }
+    .success { background:#57F287; color:#23272a; border-radius:8px; padding:19px; text-align:center; margin: 25px 0;}
+    @media (max-width:700px) {
+      .container {max-width:98vw;}
+      .products {gap:12px;}
+      .product {width:98vw; max-width:330px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Products</h1>
+      <p>Checkout to finalize your order in Discord</p>
+    </div>
+    <div id="products" class="products"></div>
+    <div id="cartSummary"></div>
+  </div>
+<script>
+const PRODUCTS = [
+  {code:"SM10", name:"Semaglutide", spec:"10mg*10vials", price:80, img:"images/semaglutide.png"},
+  {code:"TR10", name:"Tirzepatide", spec:"10mg*10vials", price:90, img:"images/tirzepatide.png"},
+  {code:"TR30", name:"Tirzepatide", spec:"30mg*10vials", price:130, img:"images/tirzepatide-30.png"},
+  {code:"TR100", name:"Tirzepatide (10ml)", spec:"100mg*10vials", price:360, img:"images/tirzepatide-100.png"},
+  {code:"RT10", name:"Retatrutide", spec:"10mg*10vials", price:125, img:"images/retatrutide.png"},
+  {code:"RT30", name:"Retatrutide", spec:"30mg*10vials", price:240, img:"images/retatrutide-30.png"},
+  {code:"CGL5", name:"Cagrilintide", spec:"5mg*10vials", price:100, img:"images/cagrilintide.png"},
+  {code:"GLOW50", name:"BPC 157 5mg+GHK-CU 35mg", spec:"50mg*10vials", price:165, img:"images/bpc-ghkcu.png"},
+  {code:"BB20", name:"BPC 10mg + TB 10mg", spec:"20mg*10vials", price:180, img:"images/bpc-tb.png"},
+  {code:"BC10", name:"BPC157", spec:"10mg*10vials", price:70, img:"images/bpc157.png"},
+  {code:"BT10", name:"TB500 (Thy B4 Ace)", spec:"10mg*10vials", price:140, img:"images/tb500.png"},
+  {code:"H10", name:"HGH", spec:"10iu*10vials", price:55, img:"images/hgh.png"},
+  {code:"H36", name:"HGH", spec:"36iu*10vials", price:150, img:"images/hgh-36.png"},
+  {code:"TSM10", name:"Tesamorelin", spec:"10mg*10vials", price:140, img:"images/tesamorelin.png"},
+  {code:"SMO10", name:"Sermorelin Acetate", spec:"10mg*10vials", price:120, img:"images/sermorelin.png"},
+  {code:"ML10", name:"MT-2 (Melanotan 2 Acetate)", spec:"10mg*10vials", price:42, img:"images/mt2.png"},
+  {code:"KLOW80", name:"BPC 157 10mg+GHK-CU 50mg", spec:"80mg*10vials", price:190, img:"images/bpc-ghkcu-80.png"},
+  {code:"NJ500", name:"NAD+", spec:"500mg*10vials", price:70, img:"images/nad.png"},
+  {code:"SK10", name:"Selank", spec:"10mg*10vials", price:48, img:"images/selank.png"},
+  {code:"XA10", name:"Semax", spec:"10mg*10vials", price:48, img:"images/semax.png"},
+  {code:"IP5", name:"Ipamorelin", spec:"5mg*10vials", price:40, img:"images/ipamorelin.png"},
+  {code:"CND5", name:"CJC-1295 Without DAC", spec:"5mg*10vials", price:75, img:"images/cjc1295-no-dac.png"},
+  {code:"CD5", name:"CJC-1295 With DAC", spec:"5mg*10vials", price:140, img:"images/cjc1295-dac.png"},
+  {code:"IG1", name:"IGF-1LR3", spec:"1mg*10vials", price:170, img:"images/igf1lr3.png"},
+  {code:"10AM", name:"5-amino-1mq", spec:"10mg*10vials", price:58, img:"images/5amino1mq.png"}
+];
+let quantities = {};
+PRODUCTS.forEach(p => quantities[p.code] = 0);
+
+function renderProducts() {
+  document.getElementById('products').innerHTML = PRODUCTS.map(product => `
+    <div class="product">
+      <img src="${product.img}" alt="${product.name}">
+      <div class="product-name">${product.name}</div>
+      <div class="product-spec">${product.spec}</div>
+      <div class="product-price">$${product.price}</div>
+      <div class="cart-controls">
+        <button class="qty-btn" onclick="changeQty('${product.code}', -1)">-</button>
+        <span class="qty-display" id="qty-${product.code}">${quantities[product.code]}</span>
+        <button class="qty-btn" onclick="changeQty('${product.code}', 1)">+</button>
+      </div>
+    </div>
+  `).join('');
+}
+function changeQty(code, delta) {
+  quantities[code] = Math.max(0, quantities[code] + delta);
+  document.getElementById(`qty-${code}`).textContent = quantities[code];
+  renderCart();
+}
+function renderCart() {
+  const items = PRODUCTS.filter(p => quantities[p.code]>0).map(p=>({...p,qty:quantities[p.code]}));
+  if(items.length===0) { document.getElementById('cartSummary').innerHTML = ""; return; }
+  let total = items.reduce((sum,i)=>sum+i.qty*i.price,0);
+  document.getElementById('cartSummary').innerHTML = `
+    <div class="cart-summary">
+      <b>Your Cart:</b>
+      ${items.map(i=>`<div class="cart-item">${i.name} (${i.spec}) × ${i.qty} — $${(i.price*i.qty).toFixed(2)}</div>`).join('')}
+      <div class="cart-total">Total: $${total.toFixed(2)}</div>
+      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>`;
+}
+function checkout() {
+  const discordUserId = "123456789"; // Replace with param from URL in production
+  const cart = PRODUCTS.filter(p => quantities[p.code]>0).map(p=>({code:p.code,name:p.name,spec:p.spec,price:p.price,qty:quantities[p.code]}));
+  const total = cart.reduce((sum,i)=>sum+i.qty*i.price,0);
+  alert("Order sent to Discord bot!\n\n" +
+    "User: " + discordUserId +
+    "\nCart: " + cart.map(i=>`${i.name} x${i.qty}`).join(", ") +
+    `\nTotal: $${total.toFixed(2)}\n\n` +
+    "In production, this data POSTs to your bot endpoint, which opens a ticket and prompts for payment!"
+  );
+  document.getElementById('cartSummary').innerHTML = `<div class="success">Your order has been sent to Discord.<br>Please return to Discord to complete payment and confirmation.</div>`;
+  PRODUCTS.forEach(p=>quantities[p.code]=0);
+  renderProducts();
+}
+renderProducts();
+</script>
+</body>
+</html>

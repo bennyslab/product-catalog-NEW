@@ -222,16 +222,16 @@ For products that come in different sizes or concentrations:
 - `code` - Product code
 - `name` - Product name
 - `price` - Product price
-- `active` - Whether product is active
 
 ### Highly Recommended Fields
 - `description` - Product description
-- `currency` - Price currency
+- `currency` - Price currency (defaults to USD if not specified)
 - `specifications.quantity` - What the customer gets
 - `images.primary` - Product image
 - `category.primary` - Product category
 - `availability.inStock` - Stock status
 - `displayOrder` - Display order in listings
+- `active` - Whether product is active (defaults to true if not specified)
 
 ### Optional Fields
 All other fields are optional and can be added as needed:

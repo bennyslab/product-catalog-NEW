@@ -35,7 +35,7 @@ Each product in the `products` array contains:
 - **name** (string, required): Product display name
 - **shortDescription** (string): Brief product summary
 - **description** (string): Detailed product description with usage information
-- **price** (number, required): Base price of the product
+- **price** (number, required): Current selling price of the product
 - **currency** (string): Currency code (default: "USD")
 
 ### Specifications
@@ -143,6 +143,8 @@ Search engine optimization fields.
 ```
 
 Flexible pricing structure with bulk discount support.
+
+**Note:** The `basePrice` field in the pricing section is optional and can be used to track the original/list price when different from the current `price` (e.g., for sale pricing). If not implementing separate sale pricing, you can keep `basePrice` the same as `price` or omit the entire `pricing` section.
 
 ### Reviews
 

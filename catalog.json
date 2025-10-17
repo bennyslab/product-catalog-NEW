@@ -1,4 +1,159 @@
-[
-  {"id": 1, "name": "Test Product 1", "price": 10.0},
-  {"id": 2, "name": "Test Product 2", "price": 20.0}
-]
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-10-17T02:40:34.712Z",
+  "products": [
+    {
+      "id": "SM10",
+      "code": "SM10",
+      "name": "Semaglutide",
+      "shortDescription": "High-quality semaglutide peptide for research purposes",
+      "description": "Semaglutide is a glucagon-like peptide-1 (GLP-1) receptor agonist peptide. This product is intended for research and laboratory use only. Each vial contains 10mg of semaglutide in lyophilized powder form, requiring reconstitution with bacteriostatic water before use.",
+      "price": 80.00,
+      "currency": "USD",
+      "specifications": {
+        "concentration": "10mg per vial",
+        "quantity": "10 vials",
+        "form": "Lyophilized powder",
+        "purity": ">98%"
+      },
+      "images": {
+        "primary": "images/semaglutide.png",
+        "thumbnail": "images/semaglutide.png",
+        "gallery": [
+          "images/semaglutide.png"
+        ]
+      },
+      "category": {
+        "primary": "GLP-1 Agonists",
+        "subcategory": "Weight Management",
+        "tags": [
+          "peptide",
+          "glp-1",
+          "research",
+          "semaglutide"
+        ]
+      },
+      "availability": {
+        "inStock": true,
+        "stockLevel": "high",
+        "estimatedShipping": "2-3 business days",
+        "backorderAvailable": false
+      },
+      "metadata": {
+        "sku": "SM10-001",
+        "barcode": "",
+        "manufacturer": "",
+        "countryOfOrigin": "",
+        "weight": "50g",
+        "dimensions": {
+          "length": "10cm",
+          "width": "8cm",
+          "height": "5cm"
+        },
+        "warnings": [
+          "For research use only",
+          "Not for human consumption",
+          "Requires proper storage at 2-8°C after reconstitution"
+        ],
+        "relatedProducts": [
+          "TR10",
+          "TR30"
+        ]
+      },
+      "seo": {
+        "metaTitle": "Semaglutide 10mg x 10 Vials - Research Peptide",
+        "metaDescription": "High-quality Semaglutide peptide for research purposes. 10mg per vial, pack of 10.",
+        "keywords": [
+          "semaglutide",
+          "glp-1",
+          "peptide",
+          "research"
+        ]
+      },
+      "pricing": {
+        "basePrice": 80.00,
+        "bulkDiscounts": [
+          {
+            "quantity": 5,
+            "discount": 0.10,
+            "discountedPrice": 72.00
+          },
+          {
+            "quantity": 10,
+            "discount": 0.15,
+            "discountedPrice": 68.00
+          }
+        ],
+        "taxable": true
+      },
+      "reviews": {
+        "averageRating": 0,
+        "totalReviews": 0,
+        "reviewsEnabled": true
+      },
+      "displayOrder": 1,
+      "featured": true,
+      "active": true,
+      "createdAt": "2025-10-17T00:00:00.000Z",
+      "updatedAt": "2025-10-17T02:40:34.712Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "glp1-agonists",
+      "name": "GLP-1 Agonists",
+      "description": "Glucagon-like peptide-1 receptor agonist peptides for research",
+      "parentCategory": null,
+      "displayOrder": 1,
+      "active": true
+    },
+    {
+      "id": "weight-management",
+      "name": "Weight Management",
+      "description": "Peptides commonly studied for weight management research",
+      "parentCategory": null,
+      "displayOrder": 2,
+      "active": true
+    },
+    {
+      "id": "healing-recovery",
+      "name": "Healing & Recovery",
+      "description": "Peptides studied for tissue repair and recovery",
+      "parentCategory": null,
+      "displayOrder": 3,
+      "active": true
+    },
+    {
+      "id": "growth-factors",
+      "name": "Growth Factors",
+      "description": "Growth hormone and related peptides for research",
+      "parentCategory": null,
+      "displayOrder": 4,
+      "active": true
+    },
+    {
+      "id": "cognitive",
+      "name": "Cognitive Support",
+      "description": "Nootropic peptides for cognitive research",
+      "parentCategory": null,
+      "displayOrder": 5,
+      "active": true
+    }
+  ],
+  "metadata": {
+    "storeName": "Product Catalog",
+    "storeDescription": "Research peptides catalog for laboratory use",
+    "supportedCurrencies": [
+      "USD"
+    ],
+    "shippingRegions": [
+      "US",
+      "International"
+    ],
+    "paymentMethods": [
+      "credit_card",
+      "cryptocurrency",
+      "bank_transfer"
+    ]
+  }
+}
